@@ -7,6 +7,7 @@ Feature: Users should be able to login
 
   Scenario Outline: Verify login with different user types
     Given the user logged in as "<userType>"
+#    Parameterized option:
 #    Given the user logged in with username as "User1" and password as "UserUser123"
     Examples:
       | userType  |
