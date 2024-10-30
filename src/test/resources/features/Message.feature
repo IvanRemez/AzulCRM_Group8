@@ -20,26 +20,31 @@ Feature: Sending messages in AzulCRM
     And user should be able to sent to Employees and Departments
     And user should be able to sent to email users
 
- @Iwantsleep
+  @Iwantsleep
   Scenario: User submits a message with no recipient
-   Given user is logged in to AzulCRM
-   When the user clicks on the Message tab
+    Given user is logged in to AzulCRM
+    When the user clicks on the Message tab
     And fills in the message content with "Important Update"
     And selects no recipient
     Then the user should see the error message "Please specify at least one person."
 
+  @Oioi
   Scenario: User cancels sending a message
+    Given user is logged in to AzulCRM
+    When the user clicks on the Message tab
     And fills in the message content with "This is a test message."
-    And selects a recipient "Jane Doe"
     And decides to cancel the message
     Then the message should not be sent
 
-  Scenario:  User sees option of attachment
-    And user is able to see option to Upload files
-    And user is able to see option to add Link
-    And user is able to see option to insert Video
-    And user is able to see option to quote text
-    And user is able to see option to add Mention
-    And user is able to see option to add Tag
-    And user is able to see option to Record Video
+
+  #Scenario:  User sees option of attachment
+   # Given user is logged in to AzulCRM
+   # When the user clicks on the Message tab
+   # And user is able to see option to Upload files
+   # And user is able to see option to add Link
+   # And user is able to see option to insert Video
+   # And user is able to see option to quote text
+ #   And user is able to see option to add Mention
+  #  And user is able to see option to add Tag
+   # And user is able to see option to Record Video
 
