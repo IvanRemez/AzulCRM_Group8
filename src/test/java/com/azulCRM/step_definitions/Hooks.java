@@ -24,8 +24,8 @@ public class Hooks {
     @Before (order = 1)
     public void setupMethod(){
 
-        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-
+        Driver.getDriver().manage().window().maximize();
+        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
     }
 
@@ -46,12 +46,8 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", scenario.getName());
 
         }
-
-
-
         BrowserUtils.sleep(2);
         Driver.closeDriver();
-
     }
 
     //@BeforeStep

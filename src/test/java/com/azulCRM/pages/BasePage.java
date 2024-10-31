@@ -1,8 +1,5 @@
 package com.azulCRM.pages;
 
-
-
-
 import com.azulCRM.utilities.BrowserUtils;
 import com.azulCRM.utilities.Driver;
 import org.openqa.selenium.By;
@@ -19,6 +16,12 @@ import java.util.List;
 
 public abstract class BasePage {
 
+// NEW:
+    @FindBy(id = "logo_24_a")
+    public WebElement homeButton;
+
+
+// OLDER:
     @FindBy(css = "span.title-level-1")
     public List<WebElement> menuOptions;
 
@@ -41,8 +44,6 @@ public abstract class BasePage {
     public BasePage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
-
-
     /**
      * @return page name, for example: Dashboard
      */
