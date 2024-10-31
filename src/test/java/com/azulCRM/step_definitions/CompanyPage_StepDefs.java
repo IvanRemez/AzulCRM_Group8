@@ -15,6 +15,7 @@ import static org.openqa.selenium.By.cssSelector;
 
 public class CompanyPage_StepDefs {
     CompanyPage page=new CompanyPage();
+
     @When("user navigates to the company page")
     public void user_navigates_to_the_company_page() {
        page.companyLink.click();
