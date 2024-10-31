@@ -10,9 +10,9 @@ Feature: Upload files and pictures functionality
     Then user clicks on the upload files icon
     And user clicks on the Upload files and pictures button and selects a file "<filetype>" from their device
     And user clicks on in text button insert the file into the text
-    Then user clicks on send button see the uploaded "<file or picture>" in the Activity Stream
+    Then user clicks on send button see the uploaded "<file name>" in the Activity Stream
     Examples:
-      | userType  | filetype | file or picture                       |
+      | userType  | filetype | file name                             |
       | hr        | jpeg     | sampleFile.jpeg                       |
       | helpdesk  | png      | Screenshot 2024-10-29 at 19.39.02.png |
       | hr        | pdf      | Test_Case_Writing_Tips.docx.pdf       |

@@ -89,7 +89,7 @@ public class UploadFileAndPicture_StepDefs {
             postTitle.add(each.getAttribute("title"));
         }
         System.out.println(postTitle);
-        Assert.assertTrue(postTitle.contains("Upload file functionality.docx"));
+        Assert.assertTrue(postTitle.contains(uploadedFileName));
     }
 
 
