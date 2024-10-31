@@ -24,3 +24,5 @@ Feature: Activity Stream Page Options
       | Appreciation              |
       | Announcement              |
       | Workflow                  |
+
+
