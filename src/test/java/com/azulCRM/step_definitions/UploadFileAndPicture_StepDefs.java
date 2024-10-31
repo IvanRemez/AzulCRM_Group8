@@ -77,22 +77,21 @@ public class UploadFileAndPicture_StepDefs {
         BrowserUtils.sleep(3);
         page.insertButton.click();
     }
-
-    @Then("user clicks on send button see the uploaded file or picture in the Activity Stream")
-    public void user_clicks_on_send_button_see_the_uploaded_file_or_picture_in_the_activity_stream() {
+    @Then("user clicks on send button see the uploaded {string} in the Activity Stream")
+    public void userClicksOnSendButtonSeeTheUploadedInTheActivityStream(String uploadedFileName) {
         BrowserUtils.waitForPageToLoad(5);
         page.sendButton.click();
         BrowserUtils.waitForPageToLoad(5);
-     List<WebElement> posts=Driver.getDriver().findElements(By.xpath("//*[contains(@id,'disk-attach-')]"));
-     List<String>postTitle=new ArrayList();
+        List<WebElement> posts=Driver.getDriver().findElements(By.xpath("//*[contains(@id,'disk-attach-')]"));
+        List<String>postTitle=new ArrayList();
         for (WebElement each : posts) {
             postTitle.add(each.getAttribute("data-bx-title"));
             postTitle.add(each.getAttribute("title"));
         }
         System.out.println(postTitle);
         Assert.assertTrue(postTitle.contains("Upload file functionality.docx"));
-
     }
+
 
     @When("the user clicks on the x button to remove the file")
     public void theUserClicksOnTheXButtonToRemoveTheFile() {
@@ -109,9 +108,7 @@ public class UploadFileAndPicture_StepDefs {
     }
 
 
-    @And("user clicks on the Upload files and pictures button and upload {string} from their device")
-    public void userClicksOnTheUploadFilesAndPicturesButtonAndUploadFromTheirDevice(String arg0) {
-    }
+
 
 
     @When("user clicks on message option")
@@ -119,4 +116,6 @@ public class UploadFileAndPicture_StepDefs {
         BrowserUtils.sleep(3);
         page.messageTab.click();
     }
+
+
 }
