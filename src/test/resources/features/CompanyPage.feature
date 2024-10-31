@@ -5,8 +5,8 @@ Feature: Company page functionality
   Background: User is already in the log in page
     Given the user is on the login page
 
-  Scenario: Company page verification
-    Given the user logged in with username as "helpdesk1@cydeo.com" and password as "UserUser"
+  Scenario Outline: Company page verification
+    Given the user logged in as "<userType>"
     When user navigates to the company page
     Then user see the following modules in the Company page:
       | Official Information |
@@ -17,3 +17,8 @@ Feature: Company page functionality
       | Career               |
       | More                 |
       | Business News (RSS)  |
+    Examples:
+      | userType  |
+      | hr        |
+      | helpdesk |
+      | marketing  |
