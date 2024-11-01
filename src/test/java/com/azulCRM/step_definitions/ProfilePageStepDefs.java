@@ -3,12 +3,17 @@ package com.azulCRM.step_definitions;
 import com.azulCRM.pages.LoginPage;
 import com.azulCRM.pages.MyProfilePage;
 import com.azulCRM.utilities.BrowserUtils;
+import com.azulCRM.utilities.Driver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfilePageStepDefs {
@@ -19,25 +24,29 @@ public class ProfilePageStepDefs {
 
     @Given("User log in")
     public void user_log_in() {
-       loginPage.login("helpdesk1@cydeo.com","UserUser");
+        loginPage.login("helpdesk101@Cydeo.com","UserUser");
     }
-    @When("User clicks on user block")
-    public void user_clicks_on_user_block() {
+    @Given("User is on the My Profile page")
+    public void user_is_on_the_my_profile_page() {
         myProfilePage.userBlock.click();
-    }
-    @When("User clicks my profile")
-    public void user_clicks_my_profile() {
         myProfilePage.myProfile.click();
     }
-    @Then("User sees the following tab options on General:")
-    public void user_sees_the_following_tab_options_on_general(List<String> expectedTabs) {
+    @When("User views the general tab menu")
+    public void user_views_the_general_tab_menu() {
+        myProfilePage.allTabs.isDisplayed();
+    }
+    @Then("User sees the following tab options:")
+    public void user_sees_the_following_tab_options(List<String> expectedTab) {
+
+        List<String> actualTabs = BrowserUtils.getElementsText(By.xpath("//div[@id='profile-menu-filter']/a"));
+
+        Assert.assertEquals(actualTabs, expectedTab);
+
 
 
 
 
     }
 
-
-
-
 }
+
