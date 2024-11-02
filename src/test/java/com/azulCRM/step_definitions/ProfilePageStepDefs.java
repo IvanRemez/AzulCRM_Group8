@@ -19,22 +19,30 @@ import java.util.List;
 public class ProfilePageStepDefs {
 
     //Creating object class
-    LoginPage loginPage = new LoginPage();
     MyProfilePage myProfilePage = new MyProfilePage();
 
-    @Given("User log in")
-    public void user_log_in() {
-        loginPage.login("helpdesk101@Cydeo.com","UserUser");
-    }
-    @Given("User is on the My Profile page")
-    public void user_is_on_the_my_profile_page() {
+
+
+    @When("user clicks on user block")
+    public void userClicksOnUserBlock() {
         myProfilePage.userBlock.click();
+    }
+
+    @And("user clicks on My Profile")
+    public void userClicksOnMyProfile() {
         myProfilePage.myProfile.click();
     }
+
+    @Then("User is on My Profile page")
+    public void userIsOnMyProfilePage() {
+
+    }
+
     @When("User views the general tab menu")
     public void user_views_the_general_tab_menu() {
         myProfilePage.allTabs.isDisplayed();
     }
+
     @Then("User sees the following tab options:")
     public void user_sees_the_following_tab_options(List<String> expectedTab) {
 
@@ -47,6 +55,8 @@ public class ProfilePageStepDefs {
 
 
     }
+
+
 
 }
 
