@@ -2,12 +2,16 @@ Feature: My Profile page Functionality
   Agile story : As a user I want to access My Profile Page
 
   Background: User is logged in page.
-    Given User log in
+    Given the user is logged in
 
-  Scenario: Profile Tab Options Verification
-    When User clicks on user block
-    And  User clicks my profile
-    Then User sees the following tab options on General:
+  Scenario: Navigation to My Profile
+    When user clicks on user block
+    And  user clicks on My Profile
+    Then User is on My Profile page
+
+  Scenario: Tabs Verifications
+    Given User is on My Profile page
+    Then User sees the following tab options:
       | General       |
       | Drive         |
       | Tasks         |

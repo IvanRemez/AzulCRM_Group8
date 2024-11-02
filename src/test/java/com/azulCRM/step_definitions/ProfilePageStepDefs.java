@@ -20,8 +20,11 @@ public class ProfilePageStepDefs {
 
     //Creating object class
     MyProfilePage myProfilePage = new MyProfilePage();
-
-
+    LoginPage loginPage = new LoginPage();
+@Given ("the user is logged in")
+public void the_user_is_logged_in() {
+    loginPage.login("helpdesk101@Cydeo.com","UserUser");
+}
 
     @When("user clicks on user block")
     public void userClicksOnUserBlock() {
@@ -50,11 +53,8 @@ public class ProfilePageStepDefs {
 
         Assert.assertEquals(actualTabs, expectedTab);
 
-
-
-
-
     }
+
 
 
 

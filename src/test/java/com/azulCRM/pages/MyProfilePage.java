@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyProfilePage extends BasePage {
+public class MyProfilePage extends BasePage  {
 
 @FindBy(id="user-block")
 public WebElement userBlock;
