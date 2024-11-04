@@ -1,4 +1,3 @@
-//@EmployeesPage
 Feature: Modules in the Employees page and the Company Structure by default
 
   User Story: User should see following 8 modules in the
