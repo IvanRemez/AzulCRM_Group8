@@ -10,6 +10,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -20,10 +21,12 @@ public class ProfilePageStepDefs {
 
     //Creating object class
     MyProfilePage myProfilePage = new MyProfilePage();
-    LoginPage loginPage = new LoginPage();
+
+
 @Given ("the user is logged in")
 public void the_user_is_logged_in() {
-    loginPage.login("helpdesk101@Cydeo.com","UserUser");
+    myProfilePage.userName.sendKeys("helpdesk101@Cydeo");
+    myProfilePage.password.sendKeys("UserUser" + Keys.ENTER);
 }
 
     @When("user clicks on user block")

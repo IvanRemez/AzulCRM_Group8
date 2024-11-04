@@ -8,6 +8,15 @@ import java.util.List;
 
 public class MyProfilePage extends BasePage  {
 
+ @FindBy(id="USER_LOGIN")
+ public WebElement username;
+ @FindBy(id="USER_PASSWORD")
+ public WebElement password;
+
+
+
+
+
 @FindBy(id="user-block")
 public WebElement userBlock;
 
