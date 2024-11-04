@@ -5,7 +5,7 @@ Feature: Activity Stream Page Options
   Background: User is on the main homepage.
 
   Scenario: Activity Stream Page Verification
-  @Given ("The user logged in with username as {"helpdesk1@cydeo.com"} and password as {UserUser}")
+  Given The user logged in with username as "helpdesk1@cydeo.com" and password as "UserUser"
     When User navigates to the activity stream page
     Then User sees the following options:
       | Message                  |
@@ -17,7 +17,7 @@ Feature: Activity Stream Page Options
 
   @MoreOptions
   Scenario: More Options Verification
-  @Given ("The user logged in with username as {"helpdesk1@cydeo.com"} and password as {UserUser}")
+  Given The user logged in with username as "helpdesk1@cydeo.com" and password as "UserUser"
     When User navigates to the activity stream page
     Then User sees the following options under the More tab:
       | File                      |
