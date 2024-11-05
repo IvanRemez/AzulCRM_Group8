@@ -20,12 +20,6 @@ import static org.openqa.selenium.By.cssSelector;
 public class Drive_StepDefs{
     DrivePage page = new DrivePage();
 
-    @Given("the user logged in with username as {string} and password as {string}")
-    public void the_user_logged_in_with_username_as_and_password_as(String username, String password) {
-        LoginPage loginPage = new LoginPage();
-        loginPage.login(username, password);
-    }
-
     @When("User navigates to the Drive page")
     public void user_navigates_to_the_activity_stream_page() {
         page.DriveLink.click();

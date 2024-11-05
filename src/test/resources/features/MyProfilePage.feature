@@ -2,7 +2,7 @@ Feature: My Profile page Functionality
   Agile story : As a user I want to access My Profile Page
 
   Background: User is logged in.
-
+    @Profile
     Scenario: Profile Options Verification
       Given User is on the My Profile page
       When User views the general tab menu
