@@ -15,6 +15,8 @@ import java.util.List;
 
 public class ProfilePageStepDefs {
 
+    //..
+
     LoginPage loginPage = new LoginPage();
     MyProfilePage myProfilePage = new MyProfilePage();
 
