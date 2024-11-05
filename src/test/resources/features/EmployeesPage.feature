@@ -8,9 +8,7 @@ Feature: Modules in the Employees page and the Company Structure by default
 
   Scenario Outline: 8 modules in the Employees page Verification
     Given User logged in as "<userType>"
-    And User on the Base Page
-    When User sees Employees page button
-    And User clicks Employees page button
+    When User clicks the Employees page button
     Then User sees following eight modules in the Employees page:
       | Company Structure   |
       | Find Employee       |
@@ -30,9 +28,7 @@ Feature: Modules in the Employees page and the Company Structure by default
 
   Scenario Outline: Viewing the Company Structure by default by clicking the Employees page Verification
     Given User logged in as "<userType>"
-    And User on the Base Page
-    When User sees Employees page button
-    And  User clicks Employees page button
+    When User clicks the Employees page button
     Then User sees the Company Structure by default
 
     Examples:
