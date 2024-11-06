@@ -1,33 +1,47 @@
 package com.azulCRM.step_definitions;
 
+import com.azulCRM.pages.HomePage;
+import com.azulCRM.pages.LoginPage;
+import com.azulCRM.pages.MyProfilePage;
+import com.azulCRM.utilities.BrowserUtils;
+import com.azulCRM.utilities.ConfigurationReader;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+
+import java.util.List;
 
 public class ProfilePageStepDefs {
-// created Step definition class for profilePage
+
+    LoginPage loginPage = new LoginPage();
+    HomePage homePage = new HomePage();
+    MyProfilePage myProfilePage = new MyProfilePage();
+
+    @Given("User is login in homepage")
+    public void userIsLoginInHomepage() {
+        loginPage.userName.sendKeys(ConfigurationReader.getProperty("help_desk_username"));
+        loginPage.password.sendKeys(ConfigurationReader.getProperty("help_desk_password"));
+        loginPage.submit.click();
+    }
 
 
-    @Given("User is on the My Profile page")
-    public void user_is_on_the_my_profile_page() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @When("user clicks on User Block")
+    public void userClicksOnUserBlock() {
+        homePage.userBlock.click();
     }
-    @When("User views the general tab menu")
-    public void user_views_the_general_tab_menu() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+    @And("clicks on My Profile")
+    public void clicksOnMyProfile() {
+        homePage.myProfile.click();
     }
-    @Then("User sees the following tab options:")
-    public void user_sees_the_following_tab_options(io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-        // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
+
+    @Then("user sees the following general options tabs:")
+    public void userSeesTheFollowingGeneralOptionsTabs(List<String> expectedOptions) {
+        List <String> actualOptions = BrowserUtils.getElementsText(myProfilePage.allTabs);
+        Assert.assertEquals(expectedOptions, actualOptions);
+
     }
 
 

@@ -1,17 +1,19 @@
 Feature: My Profile page Functionality
   Agile story : As a user I want to access My Profile Page
 
-  Background: User is logged in.
+  Background: User log in
+    Given User is login in homepage
 
-    Scenario: Profile Options Verification
-      Given User is on the My Profile page
-      When User views the general tab menu
-      Then User sees the following tab options:
-      |General|
-      |Drive|
-      |Tasks|
-      |Calendar|
-      |Conversations|
+  @Profile
+  Scenario: Profile Options Verification
+    When user clicks on User Block
+    And clicks on My Profile
+    Then user sees the following general options tabs:
+      | General       |
+      | Drive         |
+      | Tasks         |
+      | Calendar      |
+      | Conversations |
 
 
 
