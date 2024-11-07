@@ -44,7 +44,6 @@ Feature: Sending messages in AzulCRM
       | helpdesk |
       | marketing  |
 
-
   @Scenario04
   Scenario Outline: User cancels sending a message
     Given the user logged in as "<userType>"

@@ -12,11 +12,6 @@ public class Message_StepDefinition {
     MainMsgPage main = new MainMsgPage();
 
     //Scenario 1
-    @Given("user is logged in to AzulCRM")
-    public void user_is_logged_in_to_azul_crm() {
-        loginPage.login("hr1@cydeo.com", "UserUser");
-    }
-
     @When("the user clicks on the Message tab")
     public void the_user_clicks_on_the_message_tab() {
         main.message.click();
