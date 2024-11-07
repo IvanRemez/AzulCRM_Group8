@@ -15,6 +15,10 @@ Feature: My Profile page Functionality
       | Calendar      |
       | Conversations |
 
+    Scenario: Email Verification display
+      When user lands on Profile Page
+      Then user sees email address under the General tab
+
 
 
 
