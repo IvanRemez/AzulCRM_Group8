@@ -1,5 +1,6 @@
 package com.azulCRM.step_definitions;
 
+import com.azulCRM.pages.BasePage;
 import com.azulCRM.pages.CompanyPage;
 import com.azulCRM.utilities.BrowserUtils;
 import com.azulCRM.utilities.Driver;
@@ -25,8 +26,13 @@ public class CompanyPage_StepDefs {
     @Then("user see the following modules in the Company page:")
     public void userSeeTheFollowingModulesInTheCompanyPage(List<String> modules) {
          List<String> moduleLinks= BrowserUtils.getElementsText(cssSelector("a.main-buttons-item-link"));
-
+        System.out.println(moduleLinks);
         Assert.assertEquals(moduleLinks,modules);
 
+    }
+
+    @When("user navigates to the {string} page")
+    public void userNavigatesToThePage(String pageName) {
+       BasePage.goToPage(pageName);
     }
 }

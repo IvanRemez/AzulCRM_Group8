@@ -7,7 +7,7 @@ Feature: Company page functionality
 
   Scenario Outline: Company page verification
     Given the user logged in as "<userType>"
-    When user navigates to the company page
+    When user navigates to the "Company" page
     Then user see the following modules in the Company page:
       | Official Information |
       | Our Life             |

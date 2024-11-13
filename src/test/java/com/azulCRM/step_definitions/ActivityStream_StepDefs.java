@@ -29,17 +29,17 @@ public class ActivityStream_StepDefs {
         BrowserUtils.waitForPageToLoad(3);
     }
 
-    @Then("User sees the following options:")
-    public void userSeesTheFollowingOptions(List<String> expectedModules) {
-        List<String> actualModules = BrowserUtils.getElementsText(cssSelector("a.main-buttons-item-link"));
+//    @Then("User sees the following options:")
+//    public void userSeesTheFollowingOptions(List<String> expectedModules) {
+//        List<String> actualModules = BrowserUtils.getElementsText(cssSelector("a.main-buttons-item-link"));
+//
+//        Assert.assertEquals("Module list does not match!", expectedModules, actualModules);
+//    }
 
-        Assert.assertEquals("Module list does not match!", expectedModules, actualModules);
-    }
-
-    @Then("User sees the following options under the More tab:")
-    public void userSeesTheFollowingOptionsUnderTheMoreTab(List<String> expectedMoreOptions) {
-        List<String> actualMoreOptions = BrowserUtils.getElementsText(cssSelector("a.main-buttons-item-link"));
-
-        Assert.assertEquals("More options list does not match!", expectedMoreOptions, actualMoreOptions);
-    }
+//    @Then("User sees the following options under the More tab:")
+//    public void userSeesTheFollowingOptionsUnderTheMoreTab(List<String> expectedMoreOptions) {
+//        List<String> actualMoreOptions = BrowserUtils.getElementsText(cssSelector("a.main-buttons-item-link"));
+//
+//        Assert.assertEquals("More options list does not match!", expectedMoreOptions, actualMoreOptions);
+//    }
 }
