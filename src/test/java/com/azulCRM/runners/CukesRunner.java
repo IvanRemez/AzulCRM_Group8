@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "com/azulCRM/step_definitions",
         dryRun = false,
-        tags = "@wip",
+        tags = "@UserStory14",
         publish = false //generating a report with public link
 )
 public class CukesRunner {}

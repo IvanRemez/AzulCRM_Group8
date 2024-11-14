@@ -53,6 +53,10 @@ public abstract class BasePage {
 //        BrowserUtils.waitForStaleElement(pageSubTitle);
         return pageSubTitle.getText();
     }
+    public static void goToPage(String pageName){
+        WebElement page = Driver.getDriver().findElement(By.linkText(pageName));
+        page.click();
+    }
 
 
     /**
