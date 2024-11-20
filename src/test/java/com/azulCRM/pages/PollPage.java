@@ -2,10 +2,13 @@ package com.azulCRM.pages;
 
 import com.azulCRM.utilities.BrowserUtils;
 import com.azulCRM.utilities.Driver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -16,29 +19,11 @@ public class PollPage extends BasePage {
     }
 
     // Locators for elements on the Poll page
-    @FindBy(css = "span[class*='feed-add-post-destination-text']")
-    private WebElement deliveryDefaultOption;
-
     @FindBy(xpath = "//*[@id='feed-add-post-form-tab-vote']")
     private WebElement pollTab;
 
-    @FindBy(linkText = "Add question")
-    private WebElement addQuestionLink;
-
-    @FindBy(xpath = "//*[@id=\"question_0\"]")
-    private WebElement questionInput;
-
-    @FindBy(xpath = "//input[contains(@placeholder, 'Answer')]")
-    private List<WebElement> answerInputs;
-
-    @FindBy(xpath = "//button[text()='Send']")
-    private WebElement sendButton;
-
-    @FindBy(xpath = "//span[contains(@class, 'feed-add-error')]")
-    private WebElement errorMessage;
-
-    @FindBy(xpath = "//input[@type='checkbox' and @name='MULTIPLE']")
-    private WebElement allowMultipleChoiceCheckbox;
+    @FindBy(css = "span[class*='feed-add-post-destination-text']")
+    private WebElement deliveryDefaultOption;
 
     @FindBy(xpath = "//div[@class='feed-add-post-destination']//span[@class='feed-add-post-destination-text']")
     private WebElement recipientsField;
@@ -46,90 +31,166 @@ public class PollPage extends BasePage {
     @FindBy(xpath = "//input[@class='feed-add-post-inp']")
     private WebElement pollTitleInput;
 
-    private final WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(15));
+    @FindBy(linkText = "Add question")
+    private WebElement addQuestionLink;
 
-    // Method to navigate to the Poll tab
+    @FindBy(xpath = "//input[contains(@id,'question_')]")
+    private List<WebElement> questionInputs;
+
+    @FindBy(xpath = "//div[contains(@id,'answers')]//input[contains(@placeholder, 'Answer')]")
+    private List<WebElement> answerInputs;
+
+    @FindBy(xpath = "//input[@type='checkbox' and contains(@name,'MULTIPLE')]")
+    private List<WebElement> allowMultipleChoiceCheckboxes;
+
+    @FindBy(xpath = "//button[text()='Send']")
+    private WebElement sendButton;
+
+    @FindBy(xpath = "//span[contains(@class, 'feed-add-error')]")
+    private WebElement errorMessage;
+    private WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+
+
+    // Navigate to Poll Tab
     public void navigateToPoll() {
         BrowserUtils.waitForClickablility(pollTab, 15).click();
     }
 
-    // Method to get the default delivery option text
-    public String getDeliveryDefaultOption() {
-        BrowserUtils.waitForVisibility(deliveryDefaultOption, 15);
-        return deliveryDefaultOption.getText();
+
+    // Verify user is on the Poll Creation Page
+    public boolean isOnPollCreationPage() {
+        return BrowserUtils.waitForVisibility(pollTab, 15).getAttribute("class").contains("active");
     }
 
-    // Method to add a question to the poll
+    // Get Default Delivery Option
+    public String getDefaultDeliveryOption() {
+        return BrowserUtils.waitForVisibility(deliveryDefaultOption, 15).getText();
+    }
+
+    // Get Default Recipient
+    public String getDefaultRecipient() {
+        return BrowserUtils.waitForVisibility(recipientsField, 15).getText();
+    }
+
+    // Clear Poll Title
+    public void clearPollTitle() {
+        BrowserUtils.waitForVisibility(pollTitleInput, 15).clear();
+    }
+
+    // Add a Question
     public void addQuestion(String questionText) {
-        BrowserUtils.waitForClickablility(addQuestionLink, 15).click();
-        BrowserUtils.waitForVisibility(questionInput, 15).clear();
-        questionInput.sendKeys(questionText);
+        if (questionInputs.isEmpty()) {
+            addNewQuestion(questionText);
+        } else {
+            WebElement firstQuestionInput = questionInputs.get(0);
+            BrowserUtils.waitForVisibility(firstQuestionInput, 15).clear();
+            firstQuestionInput.sendKeys(questionText);
+        }
     }
 
-    // Method to add an answer to a question
-    public void addAnswer(String answerText) {
-        for (WebElement answerInput : answerInputs) {
-            if (answerInput.getAttribute("value").isEmpty()) {
-                BrowserUtils.waitForVisibility(answerInput, 15).sendKeys(answerText);
-                break;
+    // Add Another Question
+    public void addAnotherQuestion(String questionText) {
+        addNewQuestion(questionText);
+    }
+
+    private void addNewQuestion(String questionText) {
+        BrowserUtils.waitForClickablility(addQuestionLink, 15).click();
+        WebElement newQuestionInput = Driver.getDriver()
+                .findElements(By.xpath("//input[contains(@id,'question_')]"))
+                .get(questionInputs.size());
+        BrowserUtils.waitForVisibility(newQuestionInput, 15).clear();
+        newQuestionInput.sendKeys(questionText);
+    }
+
+    // Add Answers to the Last Question
+    public void addAnswersToLastQuestion(List<String> answers) {
+        int lastQuestionIndex = questionInputs.size() - 1;
+        String answersXpath = "//div[@id='answers" + lastQuestionIndex + "']//input[contains(@placeholder, 'Answer')]";
+        List<WebElement> currentAnswerInputs = Driver.getDriver().findElements(By.xpath(answersXpath));
+
+        for (int i = 0; i < answers.size(); i++) {
+            if (i < currentAnswerInputs.size()) {
+                BrowserUtils.waitForVisibility(currentAnswerInputs.get(i), 15).clear();
+                currentAnswerInputs.get(i).sendKeys(answers.get(i));
+            } else {
+                WebElement addAnswerLink = Driver.getDriver()
+                        .findElement(By.xpath("//a[@onclick='voteAddAnswer(" + lastQuestionIndex + ")']"));
+                BrowserUtils.waitForClickablility(addAnswerLink, 15).click();
+                currentAnswerInputs = Driver.getDriver().findElements(By.xpath(answersXpath));
+                BrowserUtils.waitForVisibility(currentAnswerInputs.get(i), 15).clear();
+                currentAnswerInputs.get(i).sendKeys(answers.get(i));
             }
         }
     }
 
-    // Method to click the 'Send' button to submit the poll
-    public void clickSend() {
-        BrowserUtils.waitForClickablility(sendButton, 15).click();
+    // Get Number of Questions
+    public int getNumberOfQuestions() {
+        return questionInputs.size();
     }
 
-    // Method to check if the poll was successfully created
-    public boolean isPollCreated() {
-        return Driver.getDriver().getCurrentUrl().contains("stream");
+    // Verify Each Question Has Respective Answers
+    public boolean questionsHaveRespectiveAnswers() {
+        for (int i = 0; i < questionInputs.size(); i++) {
+            String answersXpath = "//div[@id='answers" + i + "']//input[contains(@placeholder, 'Answer')]";
+            if (Driver.getDriver().findElements(By.xpath(answersXpath)).isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    // Method to select the 'Allow multiple choice' option
-    public void selectAllowMultipleChoice() {
-        if (!allowMultipleChoiceCheckbox.isSelected()) {
-            BrowserUtils.waitForClickablility(allowMultipleChoiceCheckbox, 15).click();
+    // Check Checkbox for Question
+    public void checkCheckboxForQuestion(String checkboxName) {
+        WebElement checkbox = allowMultipleChoiceCheckboxes.get(questionInputs.size() - 1);
+        if (!checkbox.isSelected()) {
+            BrowserUtils.waitForClickablility(checkbox, 15).click();
         }
     }
 
-    // Method to clear recipients
+    // Verify Multiple Answer Selection is Allowed
+    public boolean isMultipleAnswerSelectionAllowed() {
+        WebElement checkbox = allowMultipleChoiceCheckboxes.get(questionInputs.size() - 1);
+        return checkbox.isSelected();
+    }
+
+    // Clear Recipients
     public void clearRecipients() {
-        BrowserUtils.waitForVisibility(recipientsField, 15);
-        try {
-            recipientsField.click(); // Bring focus to the field
-            recipientsField.clear(); // Attempt to clear (may need to use JavaScript or backspace)
-        } catch (Exception e) {
-            System.out.println("Could not clear recipients field: " + e.getMessage());
+        List<WebElement> removeButtons = Driver.getDriver().findElements(By.xpath("//span[@class='feed-add-post-del-but']"));
+        for (WebElement removeButton : removeButtons) {
+            BrowserUtils.waitForClickablility(removeButton, 15).click();
         }
     }
 
-    // Method to clear the poll title
-    public void clearTitle() {
-        BrowserUtils.waitForVisibility(pollTitleInput, 15);
-        try {
-            pollTitleInput.clear(); // Clear the input field
-        } catch (Exception e) {
-            System.out.println("Could not clear the poll title: " + e.getMessage());
+    // Clear Questions
+    public void clearQuestions() {
+        for (WebElement questionInput : questionInputs) {
+            BrowserUtils.waitForVisibility(questionInput, 15).clear();
         }
     }
 
-    // Method to check if the multiple choice option is enabled
-    public boolean isMultipleChoiceEnabled() {
-        BrowserUtils.waitForVisibility(allowMultipleChoiceCheckbox, 15);
-        return allowMultipleChoiceCheckbox.isSelected();
-    }
-
-    // Method to get the error message displayed on the page
-    public String getErrorMessage() {
-        BrowserUtils.waitForVisibility(errorMessage, 15);
-        return errorMessage.getText();
-    }
-
-    // Additional method to clear all answer inputs (useful for negative tests)
+    // Clear Answers
     public void clearAnswers() {
         for (WebElement answerInput : answerInputs) {
             BrowserUtils.waitForVisibility(answerInput, 15).clear();
         }
+    }
+
+    // Click Send Button
+    public void clickSendButton() {
+        BrowserUtils.waitForClickablility(sendButton, 15).click();
+    }
+
+    // Get Error Message
+    public String getErrorMessage() {
+        return BrowserUtils.waitForVisibility(errorMessage, 15).getText();
+    }
+
+    // Verify Poll Creation Success
+    public boolean isPollCreated() {
+        return Driver.getDriver().getCurrentUrl().contains("stream");
+    }
+
+    public void navigateToPollCreationPage() {
+        wait.until(ExpectedConditions.elementToBeClickable(pollTab)).click();
     }
 }
