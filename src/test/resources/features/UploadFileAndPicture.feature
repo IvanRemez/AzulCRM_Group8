@@ -6,10 +6,9 @@ Feature: Upload files and pictures functionality
   Scenario Outline: Upload files and pictures functionality verification
     Given the user logged in as "<userType>"
     When user clicks on "message" option
-#    When user clicks on message option
-    Then user clicks on the upload files icon
-    And user clicks on the Upload files and pictures button and selects a file "<filetype>" from their device
-    And user clicks on in text button insert the file into the text
+#    Then user clicks on the "upload files" icon
+#    And user Upload files a file "<filetype>" from their device
+#    And user clicks on "in text" button insert the file
     Then user clicks on send button see the uploaded "<file name>" in the Activity Stream
     Examples:
       | userType  | filetype | file name                             |
@@ -29,12 +28,11 @@ Feature: Upload files and pictures functionality
   Scenario Outline: : Removes uploaded file or pictures before sending
     Given the user logged in as "<userType>"
     When user clicks on "message" option
-#    When user clicks on message option
-    Then user clicks on the upload files icon
-    And user clicks on the Upload files and pictures button and selects a file "<filetype>" from their device
-    And user clicks on in text button insert the file into the text
-    When the user clicks on the x button to remove the file
-    Then the file is removed from the message composition area
+#    Then user clicks on the "upload files" icon
+#    And user Upload files a file "<filetype>" from their device
+#    And user clicks on "in text" button insert the file
+#    When user clicks Delete Icon with exact class "del-but"
+#    Then user should not be able to see "<fileType>" in the uploaded files
     Examples:
       | userType  | filetype |
       | hr        | jpeg     |

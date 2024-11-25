@@ -21,12 +21,8 @@ public class UploadFileAndPicture_StepDefs {
 
     @When("user clicks on {string} option")
     public void userClicksOnOption(String linkText) {
-        BrowserUtils.sleep(3);
-        if (linkText.equalsIgnoreCase("more")){page.moreTab.click();}
-        else if (linkText.equalsIgnoreCase("message")) {page.messageTab.click();}
-        else if (linkText.equalsIgnoreCase("task")) {page.taskTab.click();}
-        else if (linkText.equalsIgnoreCase("poll")) {page.pollTab.click();}
-        else if (linkText.equalsIgnoreCase("event")) {page.eventTab.click();}
+
+
         }
 
     @Then("user clicks on the upload files icon")
